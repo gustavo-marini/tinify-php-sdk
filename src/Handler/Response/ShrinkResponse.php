@@ -14,11 +14,22 @@
 
         public $api;
         private $filename = '';
+        private $success = true;
+        private $error = false;
 
-        public function __construct($body, Tinify $api, string $filename = '') {
-            $this->api = $api;
-            $this->filename = $filename;
-            parent::__construct($body);
+        public function __construct($body, Tinify $api, string $filename = '', $error = false) {
+            if($error === false) {
+                $this->api = $api;
+                $this->filename = $filename;
+                parent::__construct($body);
+            } else {
+                $this->error = true;
+                $this->success = false;
+                $data = [
+                    'error' => true
+                ];
+                parent::__construct($data);
+            }
         }
 
         public function getInputSize(): int {
@@ -73,6 +84,14 @@
 
         public function store(): StoreRequest {
             return (new StoreRequest)->with($this);
+        }
+
+        public function success(): bool {
+            return $this->success;
+        }
+
+        public function error(): bool {
+            return $this->error;
         }
 
     }

@@ -3,6 +3,7 @@
     namespace Secco2112\Tinify\Service;
 
     use GuzzleHttp\Exception\RequestException;
+    use GuzzleHttp\RequestOptions;
 
     class ServiceDefault implements ServiceInterface {
 
@@ -16,7 +17,9 @@
         private $api_key = null;
 
         private function __construct() {
-            $this->http_client = new \GuzzleHttp\Client;
+            $this->http_client = new \GuzzleHttp\Client([
+                RequestOptions::HTTP_ERRORS => false
+            ]);
         }
 
         public static function getInstance(): ServiceDefault {
@@ -70,7 +73,6 @@
 
                 return $response->getBody()->getContents();
             }catch(RequestException $e){
-                dump($e);
                 return false;
             }
         }
