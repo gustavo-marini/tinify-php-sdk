@@ -1,5 +1,8 @@
 # Tinify PHP SDK
 
+[![Stable Version](https://img.shields.io/packagist/v/secco2112/tinify-php-sdk)](https://packagist.org/packages/secco2112/tinify-php-sdk)
+[![Total Downloads](https://img.shields.io/packagist/dt/secco2112/tinify-php-sdk.svg?style=flat)](https://packagist.org/packages/secco2112/tinify-php-sdk)
+
 This is an unofficial PHP SDK for manipulating Tinify API [Tinify API](https://tinypng.com/developers) data. Here is an example:
 
 ```php
