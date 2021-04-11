@@ -1,0 +1,26 @@
+{
+    "name": "secco2112/tinify-php-sdk",
+    "description": "PHP SDK to handle Tinify API requests.",
+    "version": "1.0.0",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Gustavo Marmentini",
+            "email": "gustavomarini9@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Secco2112\\Tinify\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "*",
+        "ralouphie/mimey": "*"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.4"
+    }
+}
