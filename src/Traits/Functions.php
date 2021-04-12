@@ -10,12 +10,12 @@
          * @param mixed $s
          * @return boolean
          */
-        protected function isJson($s) {
-            $json = @json_decode($s);
+        protected function isJson($string) {
+            @json_decode($string);
             return \json_last_error() === JSON_ERROR_NONE;
         }
 
-        protected function json_decode($json, $assoc = false, $depth = 512, $options = 0) {
+        protected function json_decode($json, bool $assoc = false, $depth = 512, $options = 0) {
             $data = \json_decode($json, $assoc, $depth, $options);
             if (JSON_ERROR_NONE !== json_last_error()) {
                 throw new \InvalidArgumentException(
@@ -69,7 +69,8 @@
          * @param boolean $default
          * @return mixed
          */
-        protected function arrayExtract(array $data, $index, $default = false) {
+        protected function arrayExtract(array $data, $index, $default = null) {
+            if(!$default) $default = false;
             return $data[$index] ?? $default;
         }
 

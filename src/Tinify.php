@@ -13,31 +13,31 @@
 
         const VERSION = '1.0.0';
 
-        private $config;
-        private $service = null;
+        private $_config;
+        private $_service = null;
 
         public function setConfig(Config $config): Tinify {
-            $this->config = $config;
+            $this->_config = $config;
             return $this;
         }
 
         public function getConfig(): Config {
-            return $this->config;
+            return $this->_config;
         }
 
         public function service(): ServiceDefault {
-            if(is_null($this->service)) {
-                $this->service = ServiceDefault::getInstance()->setApiKey($this->config->get(Options::TINIFYOPT_API_KEY));
+            if(is_null($this->_service)) {
+                $this->_service = ServiceDefault::getInstance()->setApiKey($this->_config->get(Options::TINIFYOPT_API_KEY));
             }
-            return $this->service;
+            return $this->_service;
         }
 
         public function fromFile(string $file_location): ShrinkResponse {
-            if(file_exists($file_location) && is_file($file_location)) {
-                return (new ShrinkRequest)->fromFile($this, $file_location);
-            } else {
+            if(!file_exists($file_location) || !is_file($file_location)) {
                 throw new FileDoesNotExists($file_location);
             }
+
+            return (new ShrinkRequest)->fromFile($this, $file_location);
         }
 
         public function fromUrl(string $url) {

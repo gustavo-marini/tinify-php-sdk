@@ -4,7 +4,7 @@
 
     class Config {
 
-        private $config = [];
+        private $_config = [];
 
         public function __construct(array $options=[]) {
             $allowedOpts = [
@@ -13,17 +13,17 @@
 
             foreach($options as $key => $opt) {
                 if(in_array($key, $allowedOpts)) {
-                    $this->config[$key] = $opt;
+                    $this->_config[$key] = $opt;
                 }
             }
         }
 
         public function get(string $key) {
-            return $this->config[$key] ?? '';
+            return $this->_config[$key] ?? '';
         }
 
         public function toArray(): array {
-            return $this->config;
+            return $this->_config;
         }
 
         public function toJson(): string {

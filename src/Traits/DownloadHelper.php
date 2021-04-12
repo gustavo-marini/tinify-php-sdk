@@ -7,7 +7,7 @@
 
     trait DownloadHelper {
 
-        private function downloadHeaders() {
+        private function _downloadHeaders() {
             $now = gmdate("D, d M Y H:i:s");
             header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
             header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
@@ -28,11 +28,10 @@
 
             $extension = $mimes->getExtension($mimetype);
 
-            $this->downloadHeaders();
+            $this->_downloadHeaders();
             header("Content-Type: " . $mimetype);
             header("Content-Disposition: attachment;filename={$filename}.{$extension}");
             echo $contents;
-            exit;
         }
 
         protected function downloadFromBlob(string $contents, string $filename) {
@@ -42,11 +41,10 @@
             $mimetype = $finfo->buffer($contents);
             $extension = $mimes->getExtension($mimetype);
 
-            $this->downloadHeaders();
+            $this->_downloadHeaders();
             header("Content-Type: " . $mimetype);
             header("Content-Disposition: attachment;filename={$filename}.{$extension}");
             echo $contents;
-            exit;
         }
 
     }
