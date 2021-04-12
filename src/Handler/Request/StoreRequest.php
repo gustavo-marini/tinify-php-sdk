@@ -15,7 +15,7 @@
         private $_response;
         private $_source = '';
 
-        private $validServices = [
+        private $_validServices = [
             [
                 'name' => Options::TINIFYOPT_STORE_SERVICE_S3,
                 'options' => [
@@ -48,7 +48,7 @@
             }
 
             $valid = false;
-            foreach($this->validServices as $s) {
+            foreach($this->_validServices as $s) {
                 if($s['name'] === $service) {
                     $valid = !$valid;
                     break;
