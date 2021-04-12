@@ -15,9 +15,9 @@
             return \json_last_error() === JSON_ERROR_NONE;
         }
 
-        protected function json_decode($json, $assoc, $depth = 512, $options = 0) {
+        protected function json_decode($json, $assoc = null, $depth = 512, $options = 0) {
             if(!is_bool($assoc)) $assoc = false;
-            
+
             $data = \json_decode($json, $assoc, $depth, $options);
             if (JSON_ERROR_NONE !== json_last_error()) {
                 throw new \InvalidArgumentException(
