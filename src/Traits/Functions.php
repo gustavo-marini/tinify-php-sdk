@@ -16,7 +16,9 @@
         }
 
         protected function json_decode($json, $assoc = null, $depth = 512, $options = 0) {
-            if(!is_bool($assoc)) $assoc = false;
+            if(!is_bool($assoc)) {
+                $assoc = false;
+            }
 
             $data = \json_decode($json, $assoc, $depth, $options);
             if (JSON_ERROR_NONE !== json_last_error()) {
@@ -72,7 +74,9 @@
          * @return mixed
          */
         protected function arrayExtract(array $data, $index, $default = null) {
-            if(!$default) $default = false;
+            if(!$default) {
+                $default = false;
+            }
             return $data[$index] ?? $default;
         }
 
