@@ -19,12 +19,12 @@
             $url = Options::TINIFYOPT_BASE_URL . '/shrink';
             $response = $api->service()->post($url, $contents);
 
-            if($response) {
-                $this->convertToArrayIfJson($response);
-                return new ShrinkResponse($response, $api, $filename);
-            } else {
+            if(!$response) {
                 return new ShrinkResponse([], $api, '', true);
             }
+
+            $this->convertToArrayIfJson($response);
+            return new ShrinkResponse($response, $api, $filename);
         }
 
         public function fromUrl(Tinify $api, string $file_url): ResponseInterface {
@@ -34,24 +34,24 @@
             $body = ['source' => ['url' => $file_url]];
             $response = $api->service()->post($url, $body);
 
-            if($response) {
-                $this->convertToArrayIfJson($response);
-                return new ShrinkResponse($response, $api, $filename);
-            } else {
+            if(!$response) {
                 return new ShrinkResponse([], $api, '', true);
             }
+
+            $this->convertToArrayIfJson($response);
+            return new ShrinkResponse($response, $api, $filename);
         }
 
         public function fromBlob(Tinify $api, string $file_contents): ResponseInterface {
             $url = Options::TINIFYOPT_BASE_URL . '/shrink';
             $response = $api->service()->post($url, $file_contents);
 
-            if($response) {
-                $this->convertToArrayIfJson($response);
-                return new ShrinkResponse($response, $api);
-            } else {
+            if(!$response) {
                 return new ShrinkResponse([], $api, '', true);
             }
+
+            $this->convertToArrayIfJson($response);
+            return new ShrinkResponse($response, $api);
         }
 
     }
