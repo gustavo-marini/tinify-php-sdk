@@ -18,7 +18,7 @@ class TinifyTest extends TestCase
      *
      * @var \Secco2112\Tinify\Tinify
      */
-    private $api;
+    private $_api;
 
     public function __construct()
     {
@@ -26,20 +26,20 @@ class TinifyTest extends TestCase
             Options::TINIFYOPT_API_KEY => 'XXXXXXXXXXXXXXXXXXXX'
         ]);
 
-        $this->api = new Tinify;
-        $this->api->setConfig($config);
+        $this->_api = new Tinify;
+        $this->_api->setConfig($config);
         parent::__construct();
     }
 
     public function testInstanceTinify()
     {
-        $this->assertInstanceOf(Tinify::class, $this->api);
+        $this->assertInstanceOf(Tinify::class, $this->_api);
     }
 
     public function testFromUrl()
     {
         $image_url = 'https://tinypng.com/images/example-orig.png';
-        $response = $this->api->fromUrl($image_url);
+        $response = $this->_api->fromUrl($image_url);
         $this->assertInstanceOf(ResponseInterface::class, $response);
     }
 
