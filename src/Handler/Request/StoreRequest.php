@@ -12,8 +12,8 @@
 
         use Functions;
 
-        private $response;
-        private $source = '';
+        private $_response;
+        private $_source = '';
 
         private $validServices = [
             [
@@ -33,18 +33,18 @@
         ];
 
         public function __construct(string $source = null) {
-            $this->source = $source;
+            $this->_source = $source;
         }
 
         public function with(ResponseInterface $response): StoreRequest {
-            $this->response = $response;
+            $this->_response = $response;
             return $this;
         }
 
         public function at(string $service, array $options) {
-            $source = $this->response->getOutputSource();
-            if($this->source !== '') {
-                $source = $this->source;
+            $source = $this->_response->getOutputSource();
+            if($this->_source !== '') {
+                $source = $this->_source;
             }
 
             $valid = false;
@@ -55,31 +55,31 @@
                 }
             }
 
-            if($valid) {
-                $body = [
-                    'store' => [
-                        'service' => $service
-                    ]
-                ];
-                $body['store'] = array_merge($body['store'], $options);
-
-                $url = Options::TINIFYOPT_BASE_URL . $source;
-                
-                $request_service = $this->response->api->service();
-                $response = $request_service->post($url, $body);
-                if($response) {
-                    $headers = $request_service->getLastRequestHeaders();
-
-                    $data = [
-                        'location' => $headers['Location'],
-                        'width' => $headers['Image-Width'],
-                        'height' => $headers['Image-Height']
-                    ];
-
-                    return new StoreResponse($data);
-                }
-            } else {
+            if(!$valid) {
                 throw new InvalidStoreService($service);
+            } 
+
+            $body = [
+                'store' => [
+                    'service' => $service
+                ]
+            ];
+            $body['store'] = array_merge($body['store'], $options);
+
+            $url = Options::TINIFYOPT_BASE_URL . $source;
+            
+            $request_service = $this->_response->api->service();
+            $response = $request_service->post($url, $body);
+            if($response) {
+                $headers = $request_service->getLastRequestHeaders();
+
+                $data = [
+                    'location' => $headers['Location'],
+                    'width' => $headers['Image-Width'],
+                    'height' => $headers['Image-Height']
+                ];
+
+                return new StoreResponse($data);
             }
         }
 
