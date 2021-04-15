@@ -22,8 +22,26 @@
             return $this->_file_contents;
         }
 
-        public function download($filename) {
+        public function download($filename = ''): void {
             $this->downloadFromBlob($this->_file_contents, $filename);
+        }
+
+        public function toRawData(): string {
+            return $this->_file_contents;
+        }
+
+        public function saveAt($path, $filename): string {
+            $contents = $this->toRawData();
+
+            while(in_array($path[strlen($path) - 1], ['/', '\\'])) {
+                $path = substr($path, 0, -1);
+            }
+
+            $file = fopen($path . DIRECTORY_SEPARATOR . $filename, 'wb');
+            fwrite($file, $contents);
+            fclose($file);
+
+            return realpath($path . DIRECTORY_SEPARATOR . $filename);
         }
 
         public function getOutputSource(): string {

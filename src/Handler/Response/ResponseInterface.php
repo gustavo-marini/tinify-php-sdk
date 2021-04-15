@@ -10,4 +10,10 @@
         
         public function error(): bool;
 
+        public function download($filename = ''): void;
+
+        public function toRawData(): string;
+
+        public function saveAt($path, $filename): string;
+
     }

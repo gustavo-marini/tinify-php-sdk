@@ -78,6 +78,25 @@
             $this->downloadFromUrl($this->getUrl(), $_filename, $this->getOutputType());
         }
 
+        public function toRawData(): string {
+            $contents = $this->api->service()->get($this->getUrl());
+            return $contents;
+        }
+
+        public function saveAt($path, $filename): string {
+            $contents = $this->toRawData();
+
+            while(in_array($path[strlen($path) - 1], ['/', '\\'])) {
+                $path = substr($path, 0, -1);
+            }
+
+            $file = fopen($path . DIRECTORY_SEPARATOR . $filename, 'wb');
+            fwrite($file, $contents);
+            fclose($file);
+
+            return realpath($path . DIRECTORY_SEPARATOR . $filename);
+        }
+
         public function resize(array $options): ResizeResponse {
             return (new ResizeRequest)->with($this, $options);
         }
