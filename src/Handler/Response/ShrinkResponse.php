@@ -13,9 +13,9 @@
         use DownloadHelper;
 
         public $api;
-        private $filename = '';
-        private $success = true;
-        private $error = false;
+        private $_filename = '';
+        private $_success = true;
+        private $_error = false;
 
         public function __construct($body, Tinify $api, string $filename = '', $error = false) {
             if($error === false) {
@@ -23,7 +23,7 @@
                 $this->filename = $filename;
                 parent::__construct($body);
             } else {
-                $this->error = true;
+                $this->_error = true;
                 $this->success = false;
                 $data = [
                     'error' => true
@@ -91,7 +91,7 @@
         }
 
         public function error(): bool {
-            return $this->error;
+            return $this->_error;
         }
 
     }

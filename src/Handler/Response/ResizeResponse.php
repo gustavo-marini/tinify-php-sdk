@@ -10,6 +10,8 @@
 
         private $file_contents;
         private $source;
+        private $success = true;
+        private $error = false;
 
         public function __construct(string $contents, string $source) {
             $this->file_contents = $contents;
@@ -26,6 +28,14 @@
 
         public function getOutputSource(): string {
             return $this->source;
+        }
+
+        public function success(): bool {
+            return $this->success;
+        }
+
+        public function error(): bool {
+            return $this->error;
         }
             
     }

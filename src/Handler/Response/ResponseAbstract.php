@@ -7,10 +7,10 @@
         protected $data;
 
         public function __construct($body) {
-            $this->buildData($body);
+            $this->_buildData($body);
         }
 
-        private function buildData($body) {
+        private function _buildData($body) {
             foreach($body as $key => $value) {
                 $this->data[$key] = $value;
             }
