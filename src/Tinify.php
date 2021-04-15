@@ -11,10 +11,14 @@
 
     class Tinify {
 
-        const VERSION = '1.0.0';
+        const VERSION = '1.1.1';
 
         private $_config;
         private $_service = null;
+
+        public static function version(): string {
+            return self::VERSION;
+        }
 
         public function setConfig(Config $config): Tinify {
             $this->_config = $config;
