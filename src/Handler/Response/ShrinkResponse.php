@@ -20,7 +20,7 @@
         public function __construct($body, Tinify $api, string $filename = '', $error = false) {
             if($error === false) {
                 $this->api = $api;
-                $this->filename = $filename;
+                $this->_filename = $filename;
                 parent::__construct($body);
             } else {
                 $this->_error = true;
@@ -69,8 +69,8 @@
         }
 
         public function download($filename = ''): void {
-            if($this->filename !== '') {
-                $_filename = $this->filename;
+            if($this->_filename !== '') {
+                $_filename = $this->_filename;
             }
             if($filename !== '') {
                 $_filename = $filename;
@@ -87,7 +87,7 @@
         }
 
         public function success(): bool {
-            return $this->success;
+            return $this->_success;
         }
 
         public function error(): bool {

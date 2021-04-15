@@ -8,34 +8,34 @@
 
         use DownloadHelper;
 
-        private $file_contents;
-        private $source;
-        private $success = true;
-        private $error = false;
+        private $_file_contents;
+        private $_source;
+        private $_success = true;
+        private $_error = false;
 
         public function __construct(string $contents, string $source) {
-            $this->file_contents = $contents;
-            $this->source = $source;
+            $this->_file_contents = $contents;
+            $this->_source = $source;
         }
 
         public function toBinary(): string {
-            return $this->file_contents;
+            return $this->_file_contents;
         }
 
         public function download($filename) {
-            $this->downloadFromBlob($this->file_contents, $filename);
+            $this->downloadFromBlob($this->_file_contents, $filename);
         }
 
         public function getOutputSource(): string {
-            return $this->source;
+            return $this->_source;
         }
 
         public function success(): bool {
-            return $this->success;
+            return $this->_success;
         }
 
         public function error(): bool {
-            return $this->error;
+            return $this->_error;
         }
             
     }
