@@ -3,6 +3,7 @@
     namespace Secco2112\Tinify\Handler\Response;
 
     use Secco2112\Tinify\Handler\Request\ResizeRequest;
+    use Secco2112\Tinify\Handler\Request\ShrinkRequest;
     use Secco2112\Tinify\Handler\Request\StoreRequest;
     use Secco2112\Tinify\Options;
     use Secco2112\Tinify\Tinify;
@@ -95,6 +96,26 @@
             fclose($file);
 
             return realpath($path . DIRECTORY_SEPARATOR . $filename);
+        }
+
+        public function forceOptmize(float $max_optmize_percentage = 5, int $max_iterations = 10) {
+            $file = $this->getUrl();
+            $original_image_size = $this->getInputSize();
+            $new_file_size = $this->getOutputSize();
+            $diff_percent = 100 - (($new_file_size * 100) / $original_image_size);
+            $shrink = $this;
+            
+            while($diff_percent >= $max_optmize_percentage) {
+                $shrink = (new ShrinkRequest)->fromUrl($this->api, $file);
+                $file = $shrink->getUrl();
+                $original_image_size = $shrink->getInputSize();
+                $new_file_size = $shrink->getOutputSize();
+                $diff_percent = 100 - (($new_file_size * 100) / $original_image_size);
+                
+                if(--$max_iterations === 0) break;
+            }
+
+            return $shrink;
         }
 
         public function resize(array $options): ResizeResponse {
